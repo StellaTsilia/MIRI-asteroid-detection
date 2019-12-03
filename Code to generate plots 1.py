@@ -14,7 +14,7 @@ hdul=fits.HDUList([hdu])
 hdul.writeto("plot2d.fits")
 
 plot1d=np.array(data[0,:,547,707])                 #one of the four brightest pixels
-x_axis=np.array([1,2,3,4,5,6,7,8,9,10,11,12,13,14,15])
+x_axis=range(1,16)
 
 import matplotlib.pyplot as plt
 import matplotlib.image as mpimg
