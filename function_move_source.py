@@ -23,10 +23,10 @@ def move_source(data,vel,theta):
 	for w in range(exp):
 		for k in range(nz): 
 			diff[w,k,:,:]=data[w,k+1,:,:]-data[w,k,:,:] 
-	
+
 	for w in range(exp):
 		for k in range(nz):
-			diff[w,k,:,:]=shift(diff[w,k,:,:], (vely*(k+1),velx*(k+1)), order=3, mode='constant', cval=0.0, prefilter=True)
+			diff[w,k,:,:]=shift(diff[w,k,:,:], (vely*(k+1),velx*(k+1)), order=3, mode='constant', cval=math.nan, prefilter=False)
 	
 	
 	toy=np.empty([exp,nz+1,ny,nx])   
@@ -37,11 +37,10 @@ def move_source(data,vel,theta):
 	for w in range(exp):    
 		for k in range(1,nz+1): 
 			toy[w,k,:,:]=toy[w,k-1,:,:]+diff[w,k-1,:,:]
-			  
+	
 	
 	mv_source_final=np.array(toy[:,:,:])
-	hdu=fits.PrimaryHDU(mv_source_final)
-	hdul=fits.HDUList([hdu])
-	hdul.writeto("/home/stella/point_sources/sim1/det_images/mv_source_final.fits")
+	
+	return mv_source_final
 	
 
